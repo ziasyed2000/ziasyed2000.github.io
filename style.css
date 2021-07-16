@@ -451,16 +451,14 @@ h2 {
 
 .demo-u {
   position: absolute;
-  top: 50%;
-  left: 35%;
-  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 15%;
   font-size: 1.3rem;
 }
 
 .demo-p {
   position: absolute;
-  top: 65%;
-  left: 27.9%;
-  transform: translate(-50%, -50%);
+  top: 60%;
+  left: 15%;
   font-size: 1.3rem;
 }

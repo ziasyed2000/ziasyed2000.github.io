@@ -52,6 +52,8 @@ const accounts = [account1, account2];
 /////////////////////////////////////////////////
 // Elements
 
+let currentAccount, timer;
+
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
 const labelBalance = document.querySelector('.balance__value');
@@ -137,30 +139,63 @@ btnCloseModal.addEventListener('click', function (e) {
 
 // btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
+document.addEventListener('keydown', function (e){
+  if (e.key === 'Escape' && (modal.style.opacity = 100)) {
+    closeModal();
+    btnOpenModal.blur();
+  }
+});
 
 // Close modal and login with enter or esc key
-document.addEventListener('keydown', function (e) {
-  let loginAccepted = 0;
+inputLoginPin.addEventListener('keydown', function (e) {
+  // let loginAccepted = 0;
   console.log(e.key);
 
   // Login verification 
-  currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
-  );
+  // currentAccount = accounts.find(
+  //   acc => acc.username === inputLoginUsername.value
+  // );
   
-  if (currentAccount?.pin === +inputLoginPin.value) {
-    loginAccepted = 1;
-  }
+  // if (currentAccount?.pin === +inputLoginPin.value) {
+  //   loginAccepted = 1;
+  // }
 
-  if (e.key === 'Enter' && loginAccepted) {
+  if (e.key === 'Enter') {
     closeModal();
     btnOpenModal.blur();
     login();
   }
+});
 
-  if (e.key === 'Escape' && (modal.style.opacity = 100)) {
-    closeModal();
-    btnOpenModal.blur();
+inputTransferAmount.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    const amount = +inputTransferAmount.value;
+    const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    // Doing the transfer
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    // Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+
+    // Update UI
+    updateUI(currentAccount);
+
+    // Reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
+  }
   }
 });
 
@@ -406,7 +441,7 @@ const startLogOutTimer = function () {
 
 ///////////////////////////////////////
 // Event handlers
-let currentAccount, timer;
+
 
 // ALWAYS LOGGED IN - Development purposes
 // currentAccount = account1;
@@ -416,6 +451,13 @@ let currentAccount, timer;
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
+  
+  // currentAccount = accounts.find(
+  //   acc => acc.username === inputLoginUsername.value
+  // );
+  // console.log(currentAccount);
+
+
   login();
 });
 
@@ -492,6 +534,20 @@ btnClose.addEventListener('click', function (e) {
 
     // Hide UI
     containerApp.style.opacity = 0;
+
+    // Swap Logout button
+    btnLogout.style.opacity = 0;
+    btnLoginMain.style.display = 'Block';
+    setTimeout(function(){
+      btnLogout.style.display = 'none';
+      btnLoginMain.style.opacity = 100;
+    }, 1000)
+
+    // Open demo modal
+    openDemoModal();
+    setTimeout(function(){
+      demoModal.style.display = 'block';
+    }, 1000)
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
