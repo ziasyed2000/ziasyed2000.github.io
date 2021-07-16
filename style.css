@@ -350,13 +350,15 @@ h2 {
 
 .show-modal {
   border: none;
+  position: absolute;
+  top: 3%;
+  left: 86.9%;
   padding: 0.5rem 2rem;
   font-size: 1.6rem;
   font-family: inherit;
   text-align: center;
   width: 10%;
   border-radius: 10rem;
-  margin-right: 1rem;
   color: inherit;
   border: 1px solid #fff;
   transition: all 0.3s;
