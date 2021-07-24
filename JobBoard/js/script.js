@@ -80,7 +80,7 @@ function showJobs(jobs){
         jobsHTML += `
             <div class="job-tile">
                 <div class="top">
-                    <img src="${job.company_logo_url}" onerror="src='./img/logo.png'">
+                    <img src="${job.company_logo_url}" onerror="src='./JobBoard/img/logo.png'">
                     <span class="material-icons more-horiz">more_horiz</span>
                 </div>
                 <div class="rolename">
