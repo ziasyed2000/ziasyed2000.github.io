@@ -67,7 +67,7 @@ const closeLoad = function(){
         modal.style.display = 'none';
     }, 3000)
 }
-
+ 
 function showJobs(jobs){
     let jobsContainer = document.querySelector(".jobs-container");
     let jobsHTML = "";
