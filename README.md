@@ -1,4 +1,4 @@
-# Astro
+# Personal Website
 
 ## 🧞 Commands
 
