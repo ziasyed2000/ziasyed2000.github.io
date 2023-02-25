@@ -1,6 +1,6 @@
 ---
 title: Images In Multimedia
-publishDate: 2023-02-08 00:00:00
+publishDate: 2023-02-16 00:00:00
 img: /assets/stock-6.jpg
 img_alt: laptop on a wooden desk alongside a plant
 description: |
